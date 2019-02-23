@@ -25,8 +25,10 @@
             </a>
          </div>
          <div class="contribute">
+            <a :href='getLoginUrl()' target="_self">login here   </a>
             <a href="https://github.com/Azure/ServerlessLibrary"  target="_blank" title="How to Contribute" >
                <span>How to contribute </span>
+
                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" class="contributelink" >
                   <defs></defs>
                   <g transform="translate(-1337 -14)">
@@ -107,6 +109,7 @@
         }
       },
 
+
       list() {
           let queryParams = {};
         var x = this.updatedFilters,
@@ -149,9 +152,19 @@
       }
 
     },
+    methods: {
+    getLoginUrl()
+    {
+        return 'http://localhost:16743/api/contribution/login?returnUrl=' + this.getConttribtePageUrl();
+    },
+    getConttribtePageUrl() {
+      return window.location.origin + '/#/Contribute';
+    },
+
+    },
 
     created() {
-         fetch(process.env.VUE_APP_API_BASE_URL +'api/Library')
+         fetch('http://localhost:16743/api/library')
         .then(response => response.json())
         .then(data => {
               this.samples = data.sort( function (a, b) {

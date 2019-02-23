@@ -9,12 +9,22 @@ using Newtonsoft.Json;
 using System.Threading;
 using System.Net;
 using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using Newtonsoft.Json.Linq;
+using Octokit;
+using Octokit.Internal;
 
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace ServerlessLibrary
 {
+    [EnableCors("AllowAll")]
     [Produces("application/json")]
     [Route("api/[controller]")]
     public class LibraryController : Controller
@@ -24,6 +34,7 @@ namespace ServerlessLibrary
         {
             this._cacheService = cacheService;
         }
+
         // GET: api/<controller>
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<LibraryItem>), 200)]
